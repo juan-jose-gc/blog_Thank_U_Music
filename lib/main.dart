@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'data/blog_store.dart';
-import 'screens/auth.dart';
-import 'screens/home.dart';
+import 'Models/datos_ejemplo.dart';
+import 'screens/inicio_sesion_pantalla.dart';
+import 'screens/inicio_pantalla.dart';
 
-void main() => runApp(ThankUMusicApp());
-const brand = Color(0xFFB50020);
+void main() => runApp(AplicacionThankUMusic());
+const colorPrincipal = Color(0xFFB50020);
 
-class ThankUMusicApp extends StatelessWidget {
-  ThankUMusicApp({super.key, BlogStore? store}) : store = store ?? BlogStore();
-  final BlogStore store;
+class AplicacionThankUMusic extends StatelessWidget {
+  AplicacionThankUMusic({super.key, DatosEjemplo? datos})
+    : datos = datos ?? DatosEjemplo();
+  final DatosEjemplo datos;
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Thank U Music',
@@ -17,13 +18,13 @@ class ThankUMusicApp extends StatelessWidget {
     theme: ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: brand,
-        primary: brand,
+        seedColor: colorPrincipal,
+        primary: colorPrincipal,
         surface: Colors.white,
       ),
       scaffoldBackgroundColor: const Color(0xFFFFF7F8),
       appBarTheme: const AppBarTheme(
-        backgroundColor: brand,
+        backgroundColor: colorPrincipal,
         foregroundColor: Colors.white,
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -45,10 +46,10 @@ class ThankUMusicApp extends StatelessWidget {
       ),
     ),
     home: ListenableBuilder(
-      listenable: store,
-      builder: (_, _) => store.current == null
-          ? AuthScreen(store: store)
-          : HomeScreen(store: store),
+      listenable: datos,
+      builder: (_, _) => datos.usuarioActual == null
+          ? InicioSesionPantalla(datos: datos)
+          : InicioPantalla(datos: datos),
     ),
   );
 }
